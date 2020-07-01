@@ -25,21 +25,21 @@ child.stdout.setEncoding('utf8')
 child.stderr.setEncoding('utf8')
 
 child.stdout.on('data', (data) => {
-console.log(data);
-logger.log(data);
+    console.log(data);
+    logger.log(data);
 });
 
 child.stderr.on('data', (data) => {
-console.error(data);
-logger.log(data);
+    console.error(data);
+    logger.log(data);
 });
 
 child.on('error', (error) => {
-console.error(error);
-logger.log(error);
+    console.error(error);
+    logger.log(error);
 });
 
 child.on('close', (code) => {
-console.log(`Lavalink exited with code ${code}`);
-logger.log(`Lavalink exited with code ${code}`);
+    console.log(`Lavalink exited with code ${code}`);
+    logger.log(`Lavalink exited with code ${code}`);
 });
