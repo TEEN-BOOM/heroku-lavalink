@@ -8,4 +8,7 @@
   },
   "author": "",
   "license": "MIT"
+  "dependencies": {
+    "@timberio/node": "*"
+  }
 }
