@@ -1,15 +1,21 @@
-  
+
 const fs = require('fs')
+const Timber = require("@timberio/node");
+let application = fs.readFileSync('./application.yml', 'utf8')
 
-let application = fs.readFileSync('./application.yml','utf8')
-
-if(process.env.PORT){
-	application = application.replace('DYNAMICPORT',process.env.PORT)
+if (process.env.PORT) {
+    application = application.replace('DYNAMICPORT', process.env.PORT)
 }
 
-if(process.env.PASS){
-	application = application.replace('youshallnotpass',process.env.PASS)
+if (process.env.PASS) {
+    application = application.replace('youshallnotpass', process.env.PASS)
 }
+
+var ID = process.env.ID
+var KEY = process.env.KEY
+
+const logger = new Timber(ID, KEY);
+
 fs.writeFileSync('./application.yml', application)
 
 const spawn = require('child_process').spawn;
