@@ -28,6 +28,10 @@ const logger = new Timber(ID, KEY, {
   // Boolean to specify whether thrown errors/failed logs should be ignored
   ignoreExceptions: false,
 });
+logger.setSync(async logs => {
+    logs.forEach(log => console.log(log));
+    return logs;
+})
 
 fs.writeFileSync('./application.yml', application)
 
@@ -39,21 +43,21 @@ child.stderr.setEncoding('utf8')
 
 child.stdout.on('data', (data) => {
     console.log(data);
-    logger.log(data);
+//     logger.log(data);
 });
 
 child.stderr.on('data', (data) => {
     console.error(data);
-    logger.error(data);
+//     logger.error(data);
 });
 
 child.on('error', (error) => {
     console.error(error);
-    logger.error(error);
+//     logger.error(error);
 });
 
 child.on('close', (code) => {
     console.log(`Lavalink exited with code ${code}`);
-    logger.log(`Lavalink exited with code ${code}`);
+//     logger.log(`Lavalink exited with code ${code}`);
 });
 
