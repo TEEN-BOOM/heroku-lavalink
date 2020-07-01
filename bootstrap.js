@@ -14,24 +14,14 @@ if (process.env.PASS) {
 var ID = process.env.ID
 var KEY = process.env.KEY
 
-const logger = new Timber(ID, KEY, {
-  // Maximum number of logs to sync in a single request to Timber.io
-  batchSize: 1000,
-
-  // Max interval (in milliseconds) before a batch of logs proceeds to syncing
-  batchInterval: 1000,
-
-  // Maximum number of sync requests to make concurrently (useful to limit
-  // network I/O)
-  syncMax: 100, // <-- we've increased concurrent network connections up to 100
-
-  // Boolean to specify whether thrown errors/failed logs should be ignored
-  ignoreExceptions: false,
+var logger = new Timber(ID, KEY, {
+  syncMax: 10,
+  ignoreExceptions: false
 });
-logger.setSync(async logs => {
-    logs.forEach(log => console.log(log));
-    return logs;
-})
+// logger.setSync(async logs => {
+//     logs.forEach(log => console.log(log));
+//     return logs;
+// })
 
 fs.writeFileSync('./application.yml', application)
 
@@ -43,21 +33,21 @@ child.stderr.setEncoding('utf8')
 
 child.stdout.on('data', (data) => {
     console.log(data);
-//     logger.log(data);
+    logger.log(data);
 });
 
 child.stderr.on('data', (data) => {
     console.error(data);
-//     logger.error(data);
+    logger.error(data);
 });
 
 child.on('error', (error) => {
     console.error(error);
-//     logger.error(error);
+    logger.error(error);
 });
 
 child.on('close', (code) => {
     console.log(`Lavalink exited with code ${code}`);
-//     logger.log(`Lavalink exited with code ${code}`);
+    logger.log(`Lavalink exited with code ${code}`);
 });
 
