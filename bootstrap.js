@@ -14,7 +14,7 @@ if (process.env.PASS) {
 var ID = process.env.ID
 var KEY = process.env.KEY
 
-const logger = new Timber(ID, KEY{
+const logger = new Timber(ID, KEY, {
   // Maximum number of logs to sync in a single request to Timber.io
   batchSize: 1000,
 
